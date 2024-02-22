@@ -1,0 +1,50 @@
+Las funciones variádicas son aquellas que pueden recibir un numero indefinido de argumentos.
+
+
+
+No implementes la gestión del buffer del printf() original:
+
+En términos prácticos, esto significa que, si tienes varias llamadas consecutivas a printf, los datos se acumulan internamente antes de ser enviados al dispositivo de salida en un solo bloque más grande.
+Este enfoque mejora el rendimiento al reducir la frecuencia de las operaciones de entrada/salida, especialmente cuando se trata de grandes cantidades de datos.
+
+
+Deberás implementar las siguientes conversiones: cspdiuxX %:
+
+%c: Imprime un carácter.
+%s: Imprime una cadena de caracteres (string).
+%p: Imprime un puntero.
+%d: Imprime un número entero con signo.
+%i: Similar a %d, imprime un número entero con signo.
+%i también permite interpretar valores en otros formatos, como octal (si el valor comienza con 0) o hexadecimal (si el valor comienza con 0x o 0X). 
+Por ejemplo, %i podría interpretar el valor 017 como octal y mostrarlo como 15 en decimal.
+%u: Imprime un número entero sin signo.
+%x: Imprime un número entero en formato hexadecimal en minúsculas (a-f).
+%X: Imprime un número entero en formato hexadecimal en mayúsculas (A-F).
+
+Parte bonus:
+
+'-': Este flag justifica a la izquierda el resultado de la conversión y rellena el campo con espacios en blanco desde la derecha.
+'0': Este flag rellena el campo con ceros en lugar de espacios en blanco. Se ignora si se utiliza junto con el flag '-'.
+'.': Este flag se utiliza para controlar la precisión en conversiones de punto flotante.
+
+
+
+'#': Este flag se utiliza de manera diferente según el tipo de formato al que se aplique.
+Algunos ejemplos incluyen:
+%o: Impresión de enteros en formato octal. Si se utiliza el flag '#', se añade un cero al principio del número octal para indicar que está en octal.
+%x o %X: Impresión de enteros en formato hexadecimal. Si se utiliza el flag '#', se añade "0x" o "0X" al principio del número hexadecimal.
+
+    printf("Octal con '#' flag: %#o\n", octalValue);
+    printf("Hexadecimal con '#' flag: %#x\n", hexValue);
+
+' ': Este flag se utiliza para imprimir un espacio antes de un número positivo.
+Si el número es negativo, se imprime el signo negativo.
+
+    printf("Número positivo con ' ' flag: % d\n", positiveValue);
+    printf("Número negativo con ' ' flag: % d\n", negativeValue);
+
+'+': Este flag se utiliza para imprimir siempre el signo (+ o -) del número, incluso si es positivo.
+Si el número es positivo, se imprime el signo +. Si es negativo, se imprime el signo -.
+
+    printf("Número positivo con '+' flag: %+d\n", positiveValue);
+    printf("Número negativo con '+' flag: %+d\n", negativeValue);
