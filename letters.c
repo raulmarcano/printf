@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   letters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarcano <rmarcano@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: rmarcano <rmarcano@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 12:29:47 by rmarcano          #+#    #+#             */
-/*   Updated: 2024/02/21 12:29:51 by rmarcano         ###   ########.fr       */
+/*   Created: 2024/02/22 16:36:34 by rmarcano          #+#    #+#             */
+/*   Updated: 2024/02/22 16:36:36 by rmarcano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "ft_printf.h"
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <stdarg.h>
-# include <stdio.h>
+int	ft_putchar(char c)
+{
+	write(1, &c, 1);
+	return (1);
+}
 
-int ft_printf(char const *, ...);
-int	ft_putchar(char c);
-int	ft_putstr(char *str);
-int	ft_putunsigned(unsigned int nb);
-int	ft_putnbr(int nb);
-#endif
+int	ft_putstr(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+	return (i);
+}
+
