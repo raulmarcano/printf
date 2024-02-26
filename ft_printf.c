@@ -12,6 +12,30 @@
 
 #include "ft_printf.h"
 
+int	ft_writter(va_list args, int len, char format)
+{
+	if (format == 'c')
+		len += ft_putchar(va_arg(args, int));
+	else if (format == 's')
+		len += ft_putstr(va_arg(args, char *));
+	else if (format == 'd' || format == 'i')
+		len += ft_putnbr(va_arg(args, int));
+	else if (format == 'u')
+		len += ft_putunsigned(va_arg(args, unsigned int));
+	else if (format == 'x')
+		len += ft_puthex(va_arg(args, int), "0123456789abcdef");
+	else if (format == 'X')
+		len += ft_puthex(va_arg(args, int), "0123456789ABCDEF");
+	else if (format == '%')
+		len += ft_putchar('%');
+	else if (format == 'p')
+	{
+		write(1, "0x", 2);
+		len += (ft_putpoint(va_arg(args, char *))) + 2;
+	}
+	return (len);
+}
+
 int	ft_printf(char const *format, ...)
 {
 	va_list	args;
@@ -19,41 +43,23 @@ int	ft_printf(char const *format, ...)
 	size_t	len;
 
 	i = 0;
+	len = 0;
 	va_start(args, format);
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%' && format[i + 1] != '\0')
 		{
 			i++;
-			if (format[i] == 'c')
-				len = ft_putchar(va_arg(args, int));
-			else if (format[i] == 's')
-				len = ft_putstr(va_arg(args, char *));
-			else if (format[i] == 'd' || format[i] == 'i')
-				len = ft_putnbr(va_arg(args, int));
-			else if (format[i] == 'u')
-				len = ft_putunsigned(va_arg(args, unsigned int));
-			else if (format[i] == 'x')
-				len = ft_puthex(va_arg(args, int), "0123456789abcdef");
-			else if (format[i] == 'X')
-				len = ft_puthex(va_arg(args, int), "0123456789ABCDEF");
-			else if (format[i] == '%')
-				len = ft_putchar('%');
-			else if (format[i] == 'p')
-			{
-				write(1, "0x", 2);
-				len = (ft_putpoint(va_arg(args, char *))) + 2;
-			}
+			len = ft_writter(args, len, format[i]);
 		}
 		else
-		{
-			ft_putchar(format[i]);
-		}
+			len += ft_putchar(format[i]);
 		i++;
 	}
 	va_end(args);
-	return (0);
+	return (len);
 }
+
 /*
 int main() {
     char c = 'A';
@@ -61,31 +67,41 @@ int main() {
     int d = 42;
     unsigned int u = 123;
     int x = 255;
+	int len = 0;
+	int len2 = 0;
+    len = ft_printf("Character: %c\n", c);
+	len2 = printf("Character: %c\n", c);
+	printf("%d %d", len, len2);
+	len = ft_printf("String: %s\n", s);
+	len2 = printf("String: %s\n", s);
+	printf("%d %d", len, len2);
 
-    ft_printf("Character: %c\n", c);
-	printf("Character: %c\n", c);
+    len = ft_printf("Integer: %d\n", d);
+	len2 = printf("Integer: %d\n", d);
+	printf("%d %d", len, len2);
 
-    ft_printf("String: %s\n", s);
-	printf("String: %s\n", s);
+    len = ft_printf("Unsigned Integer: %u\n", u);
+	len2 = printf("Unsigned Integer: %u\n", u);
+	printf("%d %d", len, len2);
 
-    ft_printf("Integer: %d\n", d);
-	printf("Integer: %d\n", d);
+    len = ft_printf("Hexadecimal (lowercase): %x\n", x);
+	len2 = printf("Hexadecimal (lowercase): %x\n", x);
+	printf("%d %d", len, len2);
 
-    ft_printf("Unsigned Integer: %u\n", u);
-	printf("Unsigned Integer: %u\n", u);
+    len = ft_printf("Hexadecimal (uppercase): %X\n", x);
+	len2 = printf("Hexadecimal (uppercase): %X\n", x);
+	printf("%d %d", len, len2);
 
-    ft_printf("Hexadecimal (lowercase): %x\n", x);
-	printf("Hexadecimal (lowercase): %x\n", x);
 
-    ft_printf("Hexadecimal (uppercase): %X\n", x);
-	printf("Hexadecimal (uppercase): %X\n", x);
+    len = ft_printf("Percentage: %%\n");
+	len2 = printf("Percentage: %%\n");
+	printf("%d %d", len, len2);
 
-    ft_printf("Percentage: %%\n");
-	printf("Percentage: %%\n");
 
-    ft_printf("Pointer: %p\n", &d);
-	printf("Pointer: %p\n", &d);
-
+    len = ft_printf("Pointer: %p\n", &d);
+	len2 = printf("Pointer: %p\n", &d);
+	printf("%d %d", len, len2);
+	
     return (0);
 }
 */

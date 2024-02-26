@@ -45,14 +45,12 @@ int	ft_putunsigned(unsigned int nb)
 	count = 0;
 	if (nb < 10)
 	{
-		ft_putchar(nb + '0');
-		count++;
+		count += ft_putchar(nb + '0');
 	}
 	else
 	{
-		count++;
-		ft_putunsigned(nb / 10);
-		ft_putchar (nb % 10 + '0');
+		count += ft_putunsigned(nb / 10);
+		count += ft_putchar (nb % 10 + '0');
 	}
 	return (count);
 }
@@ -72,9 +70,8 @@ int	ft_puthex(unsigned int nb, char *base)
 	return (count);
 }
 
-int	transform_pointer(unsigned long long p)
+int	ft_transform_pointer(unsigned long long p)
 {
-	int		i;
 	int		count;
 	char	*base;
 
@@ -84,16 +81,8 @@ int	transform_pointer(unsigned long long p)
 		count += ft_putchar(base[p]);
 	else
 	{
-		count += transform_pointer(p / 16);
+		count += ft_transform_pointer(p / 16);
 		count += ft_putchar(base[p % 16]);
 	}
 	return (count);
-}
-
-int	ft_putpoint(void *point)
-{
-	unsigned long	p;
-
-	p = (unsigned long long)point;
-	return (transform_pointer(p));
 }

@@ -24,5 +24,7 @@ int	ft_putunsigned(unsigned int nb);
 int	ft_putnbr(int nb);
 int	ft_puthex(unsigned int nb, char *base);
 int	ft_putpoint(void *point);
-int	transform_pointer(unsigned long long p);
+int	ft_transform_pointer(unsigned long long p);
+int	ft_writter(va_list args, int len, char format);
+
 #endif
