@@ -12,7 +12,7 @@
 #include "ft_printf.h"
 
 int	ft_putnbr(int nb)
-{	
+{
 	int	count;
 
 	count = 0;
@@ -42,6 +42,7 @@ int	ft_putunsigned(unsigned int nb)
 {
 	int	count;
 
+	count = 0;
 	if (nb < 10)
 	{
 		ft_putchar(nb + '0');
@@ -56,26 +57,43 @@ int	ft_putunsigned(unsigned int nb)
 	return (count);
 }
 
-int	ft_putpoint(void *point)
+int	ft_puthex(unsigned int nb, char *base)
 {
-	int	i;
-	while (str[i] != '\0')
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-}
-
-int	ft_puthex(unsigned int nb)
-{
-	int count;
+	int	count;
 
 	count = 0;
 	if (nb < 16)
-		count += ft_putnbr(nb);
+		count += ft_putchar(base[nb]);
 	else
 	{
-		count += ft_putnbr(nb / 16);
-		count += ft_putnbr(nb % 16);
+		count += ft_puthex(nb / 16, base);
+		count += ft_putchar(base[nb % 16]);
 	}
+	return (count);
+}
+
+int	transform_pointer(unsigned long long p)
+{
+	int		i;
+	int		count;
+	char	*base;
+
+	base = "0123456789abcdef";
+	count = 0;
+	if (p < 16)
+		count += ft_putchar(base[p]);
+	else
+	{
+		count += transform_pointer(p / 16);
+		count += ft_putchar(base[p % 16]);
+	}
+	return (count);
+}
+
+int	ft_putpoint(void *point)
+{
+	unsigned long	p;
+
+	p = (unsigned long long)point;
+	return (transform_pointer(p));
 }

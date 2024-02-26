@@ -14,10 +14,15 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-int ft_printf(char const *, ...);
+int	ft_printf(char const *format, ...);
 int	ft_putchar(char c);
 int	ft_putstr(char *str);
 int	ft_putunsigned(unsigned int nb);
 int	ft_putnbr(int nb);
+int	ft_puthex(unsigned int nb, char *base);
+int	ft_putpoint(void *point);
+int	transform_pointer(unsigned long long p);
 #endif
