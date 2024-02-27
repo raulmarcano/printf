@@ -52,6 +52,8 @@ int	ft_printf(char const *format, ...)
 			i++;
 			len = ft_writter(args, len, format[i]);
 		}
+		else if (format[i] == '%' && format[i + 1] == '\0')
+			return (0);
 		else
 			len += ft_putchar(format[i]);
 		i++;
@@ -61,17 +63,20 @@ int	ft_printf(char const *format, ...)
 }
 
 /*
-int main() {
+int main() 
+{
+	int len = 0;
+	int len2 = 0;
     char c = 'A';
     char *s = "Hello, World!";
     int d = 42;
     unsigned int u = 123;
     int x = 255;
-	int len = 0;
-	int len2 = 0;
+	double f = 3.14159;
     len = ft_printf("Character: %c\n", c);
 	len2 = printf("Character: %c\n", c);
 	printf("%d %d", len, len2);
+
 	len = ft_printf("String: %s\n", s);
 	len2 = printf("String: %s\n", s);
 	printf("%d %d", len, len2);
@@ -82,6 +87,10 @@ int main() {
 
     len = ft_printf("Unsigned Integer: %u\n", u);
 	len2 = printf("Unsigned Integer: %u\n", u);
+	printf("%d %d", len, len2);
+
+	len = ft_printf("Unsigned Integer(negative): %u\n", -110);
+	len2 = printf("Unsigned Integer(negative): %u\n", -110);
 	printf("%d %d", len, len2);
 
     len = ft_printf("Hexadecimal (lowercase): %x\n", x);
@@ -101,7 +110,16 @@ int main() {
     len = ft_printf("Pointer: %p\n", &d);
 	len2 = printf("Pointer: %p\n", &d);
 	printf("%d %d", len, len2);
-	
+
+	len = printf("");
+	len2 = ft_printf("");
+	printf("%d %d", len, len2);
+
+	len = printf("Multiple variables:\n\n
+	Entero:%d\n String:%s\n Char:%c\n\n", d, s, c);
+    len2 = ft_printf("Multiple variables:\n\n 
+	Entero:%d\n String:%s\n Char:%c\n\n", d, s, c);
+    printf("%d %d\n", len, len2);
     return (0);
 }
 */
